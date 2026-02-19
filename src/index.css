@@ -1,4 +1,46 @@
-:root {
+table {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+th, td {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #f8f8f8;
+  user-select: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+th:hover {
+  background-color: #f0f0f0;
+}
+
+tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+tr:hover {
+  background-color: #f1f7ff;
+}
+
+/* Подсветка активного столбца */
+th.active {
+  background-color: #d0e4ff;
+}
+td.active {
+  background-color: #e8f2ff;
+}
+
+/* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -65,4 +107,4 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
-}
+} */
