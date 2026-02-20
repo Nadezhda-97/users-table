@@ -10,22 +10,12 @@ const columns = [
   { key: 'address.city', label: 'Город' },
 ];
 
-export const Header = ({ onSort, sortField, sortOrder }) => {
-  const handleClick = (key) => {
-    onSort(key);
-  };
-
+export const Header = () => {
   return(
     <thead>
       <tr>
         {columns.map(col => (
-          <th
-            key={col.key}
-            onClick={() => handleClick(col.key)}
-            className={sortField === col.key ? 'active' : ''}
-          >
-            {col.label} {sortField === col.key ? (sortOrder === 'asc' ? '▲' : sortOrder === 'desc' ? '▼' : '') : ''}
-          </th>
+          <th key={col.key}>{col.label}</th>
         ))}
       </tr>
     </thead>
