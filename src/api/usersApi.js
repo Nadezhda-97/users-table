@@ -1,8 +1,9 @@
 const BASE_URL = 'https://dummyjson.com/users';
 
-export const fetchUsers = async (limit = 30, skip = 0) => {
+export const fetchUsers = async (queryString = '') => {
   try {
-    const response = await fetch(`${BASE_URL}?limit=${limit}&skip=${skip}`);
+    const url = queryString ? `${BASE_URL}?${queryString}` : BASE_URL;
+    const response = await fetch(url);
     
     if (!response.ok) {
       throw new Error(`Ошибка HTTP: ${response.status}`);
