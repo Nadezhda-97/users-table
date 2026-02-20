@@ -1,4 +1,4 @@
-export const User = ({ user, sortField }) => {
+export const User = ({ user }) => {
   const getValue = (key) => key.split('.').reduce((acc, part) => acc?.[part], user);
 
   const columns = [
@@ -16,9 +16,7 @@ export const User = ({ user, sortField }) => {
   return (
     <tr>
       {columns.map(col => (
-        <td key={col} className={sortField === col ? 'active' : ''}>
-          {getValue(col)}
-        </td>
+        <td key={col}>{getValue(col)}</td>
       ))}
     </tr>
   );
