@@ -2,11 +2,16 @@ import { useState } from 'react';
 
 import { Table } from './components/Table';
 import { SortingControls } from './components/SortingControls';
+import { Pagination } from './components/Pagination';
 //import './App.css'
 
 function App() {
   const [sortField, setSortField] = useState('');
   const [sortOrder, setSortOrder] = useState('none');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [total, setTotal] = useState(0);
+
+  const limit = 5;
 
 /*
   const [users, setUsers] = useState([]);
@@ -44,6 +49,15 @@ function App() {
       <Table
         sortField={sortField}
         sortOrder={sortOrder}
+        currentPage={currentPage}
+        limit={limit}
+        onTotalChange={setTotal}
+      />
+      <Pagination
+        currentPage={currentPage}
+        total={total}
+        limit={limit}
+        onPageChange={setCurrentPage}
       />
     </div>
   );
