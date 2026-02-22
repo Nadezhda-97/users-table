@@ -16,7 +16,7 @@ export const fetchUsers = async (queryString = '') => {
       throw new Error('Неверный формат ответа от сервера');
     }
 
-    return data.users;
+    return data;
   } catch (error) {
     console.error('Ошибка при загрузке пользователей:', error.message);
     throw error; // пробрасываем дальше, чтобы компонент мог обработать
