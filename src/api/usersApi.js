@@ -1,8 +1,6 @@
-const BASE_URL = 'https://dummyjson.com/users';
-
-export const fetchUsers = async (queryString = '') => {
+export const fetchUsers = async (queryString = '', baseUrl = 'https://dummyjson.com/users') => {
   try {
-    const url = queryString ? `${BASE_URL}?${queryString}` : BASE_URL;
+    const url = queryString ? `${baseUrl}?${queryString}` : baseUrl;
     const response = await fetch(url);
     
     if (!response.ok) {
@@ -11,7 +9,6 @@ export const fetchUsers = async (queryString = '') => {
 
     const data = await response.json();
 
-    // Проверяем, что есть поле users
     if (!data.users) {
       throw new Error('Неверный формат ответа от сервера');
     }
@@ -19,6 +16,6 @@ export const fetchUsers = async (queryString = '') => {
     return data;
   } catch (error) {
     console.error('Ошибка при загрузке пользователей:', error.message);
-    throw error; // пробрасываем дальше, чтобы компонент мог обработать
+    throw error;
   }
 };
