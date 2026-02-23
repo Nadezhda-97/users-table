@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { Table } from './components/Table';
 import { SortingControls } from './components/SortingControls';
+import { FilterControls } from './components/FilterControls';
 import { Pagination } from './components/Pagination';
 import { UserModal } from './components/UserModal';
 //import './App.css'
@@ -14,15 +15,13 @@ function App() {
 
   const [selectedUser, setSelectedUser] = useState(null);
 
-  const limit = 5;
+  const [filterField, setFilterField] = useState('none');
+  const [filterValue, setFilterValue] = useState('');
 
-  const handleRowClick = (user) => {
-    setSelectedUser(user);
-  };
+  const limit = 10;
 
-  const handleCloseModal = () => {
-    setSelectedUser(null);
-  };
+  const handleRowClick = (user) => setSelectedUser(user);
+  const handleCloseModal = () => setSelectedUser(null);
 
 /*
   const [users, setUsers] = useState([]);
@@ -57,6 +56,25 @@ function App() {
         onSortFieldChange={setSortField}
         onSortOrderChange={setSortOrder}
       />
+
+      <FilterControls
+        filterField={filterField}
+        filterValue={filterValue}
+        onFieldChange={value => {
+          setFilterField(value);
+
+          // если выбран "без фильтра" или "выберите фильтр", сбрасываем значение
+          if (value === 'none') {
+            setFilterValue('');
+            setCurrentPage(1); // сброс на первую страницу
+          }
+        }}
+        onValueChange={value => {
+          setFilterValue(value);
+          setCurrentPage(1); // сбрасываем на первую страницу при фильтре
+        }}
+      />
+
       <Table
         sortField={sortField}
         sortOrder={sortOrder}
@@ -64,6 +82,8 @@ function App() {
         limit={limit}
         onTotalChange={setTotal}
         onRowClick={handleRowClick}
+        filterField={filterField}
+        filterValue={filterValue}
       />
       <Pagination
         currentPage={currentPage}
