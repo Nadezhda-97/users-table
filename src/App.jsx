@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Table } from './components/Table';
 import { SortingControls } from './components/SortingControls';
 import { Pagination } from './components/Pagination';
+import { UserModal } from './components/UserModal';
 //import './App.css'
 
 function App() {
@@ -11,7 +12,17 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [total, setTotal] = useState(0);
 
+  const [selectedUser, setSelectedUser] = useState(null);
+
   const limit = 5;
+
+  const handleRowClick = (user) => {
+    setSelectedUser(user);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedUser(null);
+  };
 
 /*
   const [users, setUsers] = useState([]);
@@ -52,6 +63,7 @@ function App() {
         currentPage={currentPage}
         limit={limit}
         onTotalChange={setTotal}
+        onRowClick={handleRowClick}
       />
       <Pagination
         currentPage={currentPage}
@@ -59,6 +71,10 @@ function App() {
         limit={limit}
         onPageChange={setCurrentPage}
       />
+
+      {selectedUser && (
+        <UserModal user={selectedUser} onClose={handleCloseModal} />
+      )}
     </div>
   );
 };
