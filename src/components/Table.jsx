@@ -4,7 +4,14 @@ import { fetchUsers } from "../api/usersApi";
 import { Header } from "./Header";
 import { User } from "./User";
 
-export const Table = ({ sortField, sortOrder, currentPage, limit, onTotalChange }) => {
+export const Table = ({
+  sortField,
+  sortOrder,
+  currentPage,
+  limit,
+  onTotalChange,
+  onRowClick,
+}) => {
   const [usersData, setUsersData] = useState([]);
 
   useEffect(() => {
@@ -23,8 +30,8 @@ export const Table = ({ sortField, sortOrder, currentPage, limit, onTotalChange 
         params.skip = (currentPage - 1) * limit;
 
         const query = new URLSearchParams(params).toString();
-        //const result = await fetchUsers(query ? `${query}` : '');
         const result = await fetchUsers(query);
+
         setUsersData(result.users);
         onTotalChange(result.total);
       } catch (error) {
@@ -40,7 +47,11 @@ export const Table = ({ sortField, sortOrder, currentPage, limit, onTotalChange 
       <Header />
       <tbody>
         {usersData.map(user => (
-          <User key={user.id} user={user} />
+          <User
+            key={user.id}
+            user={user}
+            onClick={() => onRowClick(user)}
+          />
         ))}
       </tbody>
     </table>
