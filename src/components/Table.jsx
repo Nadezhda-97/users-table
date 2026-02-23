@@ -11,15 +11,18 @@ export const Table = ({
   limit,
   onTotalChange,
   onRowClick,
+  filterField,
+  filterValue,
 }) => {
   const [usersData, setUsersData] = useState([]);
 
   useEffect(() => {
     const loadUsers = async () => {
       try {
+        let baseUrl = 'https://dummyjson.com/users';
         const params = {};
 
-        // Сортировка применяется только если выбрано и поле, и порядок
+        // Сортировка
         if (sortField && sortOrder !== 'none') {
           params.sortBy = sortField;
           params.order = sortOrder;
@@ -29,8 +32,15 @@ export const Table = ({
         params.limit = limit;
         params.skip = (currentPage - 1) * limit;
 
+        // Фильтрация через /users/filter
+        if (filterField && filterField !== 'none' && filterValue) {
+          baseUrl = 'https://dummyjson.com/users/filter';
+          params.key = filterField;
+          params.value = filterValue;
+        }
+
         const query = new URLSearchParams(params).toString();
-        const result = await fetchUsers(query);
+        const result = await fetchUsers(query, baseUrl);
 
         setUsersData(result.users);
         onTotalChange(result.total);
@@ -40,7 +50,7 @@ export const Table = ({
     };
 
     loadUsers();
-  }, [sortField, sortOrder, currentPage, limit, onTotalChange]);
+  }, [sortField, sortOrder, currentPage, limit, onTotalChange, filterField, filterValue]);
 
   return (
     <table>
