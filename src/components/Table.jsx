@@ -30,8 +30,11 @@ export const Table = ({
   const [usersData, setUsersData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [hoveredColumn, setHoveredColumn] = useState(null);
 
   const { columnWidths, handleMouseDown } = useColumnResize(columns.length);
+
+  const handleHoverColumn = (index) => setHoveredColumn(index);
 
   useEffect(() => {
     const loadUsers = async () => {
@@ -97,6 +100,7 @@ export const Table = ({
           columns={columns}
           columnWidths={columnWidths}
           onMouseDown={handleMouseDown}
+          onHoverColumn={handleHoverColumn}
         />
         <tbody>
           {usersData.map(user => (
@@ -106,6 +110,7 @@ export const Table = ({
               onClick={() => onRowClick(user)}
               columns={columns}
               columnWidths={columnWidths}
+              hoveredColumn={hoveredColumn}
             />
           ))}
         </tbody>
