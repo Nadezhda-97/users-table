@@ -28,9 +28,16 @@ export const Table = ({
   filterValue,
 }) => {
   const [usersData, setUsersData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const { columnWidths, handleMouseDown } = useColumnResize(columns.length);
 
   useEffect(() => {
     const loadUsers = async () => {
+      setLoading(true);
+      setError('');
+
       try {
         let baseUrl = 'https://dummyjson.com/users';
         const params = {};
@@ -58,14 +65,30 @@ export const Table = ({
         setUsersData(result.users);
         onTotalChange(result.total);
       } catch (error) {
-        console.error(error);
+        setError(error.message || 'Ошибка при загрузке пользователей');
+      } finally {
+        setLoading(false);
       }
     };
 
     loadUsers();
   }, [sortField, sortOrder, currentPage, limit, onTotalChange, filterField, filterValue]);
 
-  const { columnWidths, handleMouseDown } = useColumnResize(columns.length);
+  if (loading) {
+    return (
+      <div style={{ textAlign: 'center', padding: '20px' }}>
+        Загрузка пользователей...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={{ textAlign: 'center', padding: '20px', color: 'red' }}>
+        Ошибка: {error}
+      </div>
+    );
+  }
 
   return (
     <div style={{ width: "100%", overflowX: "auto" }}>
