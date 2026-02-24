@@ -20,9 +20,7 @@ export const UserModal = ({ user, onClose }) => {
         className="modal-content"
         onClick={(e) => e.stopPropagation()}
       >
-        <button className="modal-close" onClick={onClose}>
-          ×
-        </button>
+        <button className="modal-close" onClick={onClose} />
 
         <h2>
           {lastName} {firstName} {maidenName}
