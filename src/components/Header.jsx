@@ -1,21 +1,30 @@
-const columns = [
-  { key: 'lastName', label: 'Фамилия' },
-  { key: 'firstName', label: 'Имя' },
-  { key: 'maidenName', label: 'Отчество' },
-  { key: 'age', label: 'Возраст' },
-  { key: 'gender', label: 'Пол' },
-  { key: 'phone', label: 'Номер телефона' },
-  { key: 'email', label: 'Email' },
-  { key: 'address.country', label: 'Страна' },
-  { key: 'address.city', label: 'Город' },
-];
-
-export const Header = () => {
+export const Header = ({ columns, columnWidths, onMouseDown }) => {
   return(
     <thead>
       <tr>
-        {columns.map(col => (
-          <th key={col.key}>{col.label}</th>
+        {columns.map((col, index) => (
+          <th
+            key={col.key}
+            style={{
+              width: columnWidths[index] ?? undefined,
+              position: 'relative'
+            }}
+          >
+            {col.label}
+
+            <div
+              onMouseDown={(e) => onMouseDown(index, e)}
+              style={{
+                position: 'absolute',
+                right: 0,
+                top: 0,
+                height: '100%',
+                width: '5px',
+                cursor: 'col-resize',
+                userSelect: 'none'
+              }}
+            />
+          </th>
         ))}
       </tr>
     </thead>
