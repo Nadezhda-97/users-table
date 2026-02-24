@@ -5,7 +5,6 @@ import { SortingControls } from './components/SortingControls';
 import { FilterControls } from './components/FilterControls';
 import { Pagination } from './components/Pagination';
 import { UserModal } from './components/UserModal';
-//import './App.css'
 
 function App() {
   const [sortField, setSortField] = useState('');
@@ -23,33 +22,10 @@ function App() {
   const handleRowClick = (user) => setSelectedUser(user);
   const handleCloseModal = () => setSelectedUser(null);
 
-/*
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    const loadUsers = async () => {
-      setLoading(true);
-      try {
-        const data = await fetchUsers(30); // получаем первые 50 пользователей
-        setUsers(data);
-      } catch (err) {
-        setError(err.message || 'Ошибка при загрузке пользователей');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadUsers();
-  }, []);
-
-  if (loading) return <div style={{ textAlign: 'center', marginTop: '50px' }}>Загрузка пользователей...</div>;
-  if (error) return <div style={{ textAlign: 'center', marginTop: '50px', color: 'red' }}>Ошибка: {error}</div>; */
-
   return (
-    <div style={{ padding: '20px' }}>
-      <h1 style={{ textAlign: 'center' }}>Список пользователей</h1>
+    <div>
+      <h1>Список пользователей</h1>
+
       <SortingControls
         sortField={sortField}
         sortOrder={sortOrder}
@@ -63,15 +39,14 @@ function App() {
         onFieldChange={value => {
           setFilterField(value);
 
-          // если выбран "без фильтра" или "выберите фильтр", сбрасываем значение
           if (value === 'none') {
             setFilterValue('');
-            setCurrentPage(1); // сброс на первую страницу
+            setCurrentPage(1);
           }
         }}
         onValueChange={value => {
           setFilterValue(value);
-          setCurrentPage(1); // сбрасываем на первую страницу при фильтре
+          setCurrentPage(1);
         }}
       />
 
@@ -85,6 +60,7 @@ function App() {
         filterField={filterField}
         filterValue={filterValue}
       />
+
       <Pagination
         currentPage={currentPage}
         total={total}
