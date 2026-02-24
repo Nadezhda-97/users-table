@@ -1,4 +1,4 @@
-export const Header = ({ columns, columnWidths, onMouseDown }) => {
+export const Header = ({ columns, columnWidths, onMouseDown, onHoverColumn }) => {
   return(
     <thead>
       <tr>
@@ -9,6 +9,8 @@ export const Header = ({ columns, columnWidths, onMouseDown }) => {
               width: columnWidths[index] ?? undefined,
               position: 'relative'
             }}
+            onMouseEnter={() => onHoverColumn(index)}
+            onMouseLeave={() => onHoverColumn(null)}
           >
             {col.label}
 
