@@ -1,17 +1,86 @@
-# React + Vite
+# 📊 Таблица пользователей
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Приложение представляет собой интерактивную таблицу пользователей, получаемых с публичного API [DummyJSON](https://dummyjson.com/docs/users).
 
-Currently, two official plugins are available:
+Основная задача – отобразить список пользователей с возможностью сортировки, фильтрации и постраничной навигации. Также реализовано модальное окно с подробной информацией о выбранном пользователе.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Приложение демонстрирует работу с HTTP-запросами через Fetch API, управление состоянием в React и построение интерактивного пользовательского интерфейса без использования сторонних библиотек для запросов.
 
-## React Compiler
+### 📌 Технологический стек
+- JavaScript (ES6+)
+- React (18+)
+- HTML5
+- CSS3
+- Fetch API
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### ✨ Основные возможности
 
-## Expanding the ESLint configuration
+##### 🔄 Сортировка
+Сортировка по полям:
+- ФИО
+- Возраст
+- Пол
+- Номер телефона
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# users-table
+Три состояния сортировки:
+- по возрастанию
+- по убыванию
+- без сортировки
+
+Сортировка реализована через соответствующие HTTP-запросы к API.
+
+##### 🔍 Фильтрация
+- Фильтрация по доступным полям таблицы
+- Динамическое обновление данных
+
+##### 📄 Пагинация
+- Постраничное отображение пользователей
+
+##### 🪟 Модальное окно
+- Открывается по клику на строку таблицы
+- Отображает:
+  1. ФИО
+  2. Возраст
+  3. Полный адрес
+  4. Рост и вес
+  5. Телефон
+  6. Email
+  7. Аватар пользователя
+
+##### 📐 Адаптивность и UI
+- Ширина таблицы — 100% экрана, но не более 1400px
+- Возможность изменения ширины колонок
+- Минимальная ширина столбца — 50px
+
+##### ⚠ Обработка ошибок
+- Обработка ошибок при выполнении HTTP-запросов
+- Отображение состояния загрузки
+- Отображение сообщения об ошибке при неудачном запросе
+
+### 💻 Установка
+```
+git clone git@github.com:Nadezhda-97/users-table.git
+```
+```
+cd users-table
+```
+```
+npm install
+```
+
+### ▶ Запуск
+1. Запуск в режиме разработки:
+```
+npm run dev
+```
+Приложение будет доступно по адресу: http://localhost:5173
+
+2. Сборка для продакшена
+```
+npm run build
+```
+3. Предпросмотр продакшн-сборки
+```
+npm run preview
+```
+Приложение будет доступно по адресу: http://localhost:4173/
